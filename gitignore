@@ -1,0 +1,28 @@
+# Compiled Source #
+###################
+*.exe
+*.swf
+*.o
+*.so
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and Databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# OS Generated Files #
+######################
+*.DS_Store
+*._*
