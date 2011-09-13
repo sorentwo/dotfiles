@@ -1,6 +1,6 @@
 --type-add=ruby=.haml,.rake,.rsel,.builder
 --type-add=html=.html.erb,.html.haml
---type-add=js=.js.erb,.jst
+--type-add=js=.js.erb,.jst,.js.coffee,.coffee
 --type-add=css=.sass,.less,.scss
 --type-set=cucumber=.feature
 --type-set=markdown=.markdown,.md
@@ -12,4 +12,3 @@
 --color
 --follow
 --group
---context=3
