@@ -71,15 +71,6 @@ set complete=.,w,t
 " Status bar
 set laststatus=2
 
-" Without setting this, ZoomWin restores windows in a way that causes
-" equalalways behavior to be triggered the next time CommandT is used.
-" This is likely a bludgeon to solve some other issue, but it works
-set noequalalways
-
-" CTags
-map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
-map <C-\> :tnext<CR>
-
 " Intuitive backspacing in insert mode
 set backspace=indent,eol,start
 
@@ -88,6 +79,9 @@ let mapleader=" "
 
 " Less Annoying Bell
 set visualbell
+
+" CommandT
+map <Leader>tt :CommandTFlush<CR>
 
 " NERDTree
 " map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
