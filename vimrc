@@ -63,7 +63,6 @@ map <Leader>l :set invhls <CR>
 :nnoremap <silent> <F3> :nohl<CR>
 
 " Tab completion options
-"imap <Tab> <C-P>
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
 set complete=.,w,t
@@ -82,9 +81,9 @@ set visualbell
 
 " CommandT
 map <Leader>tt :CommandTFlush<CR>
+set wildignore+=**/vendor/**,**/bin/*
 
 " NERDTree
-" map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 map <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
 let NERDTreeCaseSensitiveSort = 1
 let NERDTreeWinPos = "right"
