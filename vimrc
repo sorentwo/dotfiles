@@ -79,10 +79,6 @@ let mapleader=" "
 " Less Annoying Bell
 set visualbell
 
-" CommandT
-map <Leader>tt :CommandTFlush<CR>
-set wildignore+=**/vendor/**,**/bin/*
-
 " NERDTree
 map <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
 let NERDTreeCaseSensitiveSort = 1

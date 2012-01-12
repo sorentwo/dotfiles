@@ -9,21 +9,16 @@ if has("gui_macvim")
   " Fullscreen takes up entire screen
   set fuoptions=maxhorz,maxvert
 
-  " Command-T for CommandT
+  " CTRLP
   macmenu &File.New\ Tab key=<nop>
-  map <D-t> :CommandT<CR>
-
-  " Command-T configuration
-  let g:CommandTMaxHeight=20
+  map <D-t> :CtrlP<CR>
+  set wildignore+=*/.git/*,**/vendor/**,**/bin/*,**/tmp/*,*/.*
 
   " Command-Return for fullscreen
   macmenu Window.Toggle\ Full\ Screen\ Mode key=<D-CR>
 
   " Command-Shift-F for Ack
   map <D-F> :Ack<space>
-
-  " ZoomWin configuration
-  map <Leader><Leader> :ZoomWin<CR>
 
   " TextMate style indentation
   nmap <D-]> >>
