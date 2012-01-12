@@ -94,7 +94,7 @@ nmap <Leader>a: :Tab /:\zs<CR>
 vmap <Leader>a: :Tab /:\zs<CR>
 
 " Ruby 1.8 -> 1.9 Hash Replacement
-:nnoremap <silent> <F6> :%s/\v:(\w+)(\s+)\=\>/\1:\2/g<CR>
+:nnoremap <silent> <F6> :%s/\v:(\w+)\s?\=\>/\1:/g<CR>
 
 " TextObj / Matchit
 runtime macros/matchit.vim
