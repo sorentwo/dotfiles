@@ -62,6 +62,9 @@ set smartcase
 map <Leader>l :set invhls <CR>
 :nnoremap <silent> <F3> :nohl<CR>
 
+" Let me scroll
+set mouse=nicr
+
 " Tab completion options
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
@@ -85,6 +88,9 @@ let NERDTreeCaseSensitiveSort = 1
 let NERDTreeWinPos = "right"
 let NERDTreeQuitOnOpen = 1
 
+" CtrlP
+let g:ctrlp_match_window_reversed = 1
+
 " Tabularize
 nmap <Leader>a= :Tab /=<CR>
 vmap <Leader>a= :Tab /=<CR>
@@ -92,6 +98,13 @@ nmap <Leader>a> :Tab /=><CR>
 vmap <Leader>a> :Tab /=><CR>
 nmap <Leader>a: :Tab /:\zs<CR>
 vmap <Leader>a: :Tab /:\zs<CR>
+
+" CtrlP
+map <Leader>r :CtrlP<CR>
+set wildignore+=*/.git/*,**/vendor/**,**/bin/*,**/tmp/*,*/.*
+
+" Ack
+map <Leader>c :Ack<space>
 
 " Ruby 1.8 -> 1.9 Hash Replacement
 :nnoremap <silent> <F6> :%s/\v:(\w+)\s?\=\>/\1:/g<CR>
