@@ -42,11 +42,6 @@ source $ZSH/oh-my-zsh.sh
 
 source ~/.envrc
 
-# MYSQL Related
-###############################################################################
-
-export DYLD_LIBRARY_PATH=/usr/local/mysql/lib/
-
 # Bundler
 ###############################################################################
 
@@ -57,15 +52,8 @@ alias be='bundle exec'
 
 export EDITOR=vim
 
-# SSH Aliases
-################################################################################
-
-alias sshdstage='ssh dscout@staging.dscout.com'
-alias sshdprod='ssh dscout@dscout.com'
-
 # Autocorrect Bypass
 #################################################################################
+
 alias mvim='nocorrect mvim'
 alias rspec='nocorrect rspec'
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
