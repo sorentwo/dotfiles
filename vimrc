@@ -128,7 +128,7 @@ set mouse=nicr
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
+set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,ruby/*
 set complete=.,w,t
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -165,7 +165,7 @@ vmap <Leader>a: :Tab /:\zs<CR>
 
 " CtrlP
 map <Leader>r :CtrlP<CR>
-set wildignore+=*/.git/*,**/vendor/**,**/bin/*,**/tmp/*,*/.*
+set wildignore+=*/.git/*,**/vendor/ruby/**,**/bin/*,**/tmp/*,*/.*
 
 " Ack
 map <Leader>c :Ack<space>
