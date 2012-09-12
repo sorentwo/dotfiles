@@ -47,6 +47,12 @@ source ~/.envrc
 
 alias be='bundle exec'
 
+# Macvim Aliases
+###############################################################################
+
+alias vim="mvim -v"
+alias vi="mvim -v"
+
 # Preferences
 ################################################################################
 
@@ -55,5 +61,6 @@ export EDITOR=vim
 # Autocorrect Bypass
 #################################################################################
 
+alias bundle='nocorrect bundle'
 alias mvim='nocorrect mvim'
 alias rspec='nocorrect rspec'
