@@ -40,7 +40,9 @@ source $ZSH/oh-my-zsh.sh
 # Environment Variables
 ################################################################################
 
-source ~/.envrc
+if [[ -f ~/.envrc ]]; then
+  source ~/.envrc
+fi
 
 # Bundler
 ###############################################################################
@@ -64,3 +66,7 @@ export EDITOR=vim
 alias bundle='nocorrect bundle'
 alias mvim='nocorrect mvim'
 alias rspec='nocorrect rspec'
+
+# Github
+#################################################################################
+eval "$(hub alias -s)"
