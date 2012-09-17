@@ -128,7 +128,7 @@ set mouse=nicr
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,ruby/*
+set wildignore+=*.o,*.obj,.git,*.rbc,*.class,ruby/*
 set complete=.,w,t
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
