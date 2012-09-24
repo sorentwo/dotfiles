@@ -103,9 +103,6 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-" Remove any trailing whitespace
-:nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Searching
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -115,7 +112,6 @@ set incsearch
 set ignorecase
 set smartcase
 map <Leader>l :set invhls <CR>
-:nnoremap <silent> <F3> :nohl<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Let me scroll
@@ -135,7 +131,14 @@ set complete=.,w,t
 " Status bar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set laststatus=2
+set laststatus=2               " always show statusbar
+set statusline=
+set statusline+=%-10.3n\       " buffer number
+set statusline+=%f\            " filename
+set statusline+=%h%m%r%w       " status flags
+set statusline+=%=             " right align remainder
+set statusline+=%-14(%l,%c%V%) " line, character
+set statusline+=%<%P           " file position
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Intuitive backspacing in insert mode
@@ -171,7 +174,7 @@ set wildignore+=*/.git/*,**/vendor/ruby/**,**/bin/*,**/tmp/*,*/.*
 map <Leader>c :Ack<space>
 
 " Ruby 1.8 -> 1.9 Hash Replacement
-:nnoremap <silent> <F6> :%s/\v:(\w+)\s?\=\>/\1:/g<CR>
+:nnoremap <silent> <F10> :%s/\v:(\w+)\s?\=\>/\1:/g<CR>
 
 " TextObj / Matchit
 runtime macros/matchit.vim
@@ -194,6 +197,21 @@ function! InsertTabWrapper()
 endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Toggle Functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Toggle Pasting
+:set pastetoggle=<F2>
+
+" Toggle Highlighting
+:nnoremap <silent> <F3> :nohl<CR>
+
+" Toggle Spelling
+:map <F4> :setlocal spell! spelllang=en_us<CR>
+
+" Remove any trailing whitespace
+:nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Testing functions borrowed from Gary Berhardt
