@@ -26,3 +26,8 @@
 ######################
 *.DS_Store
 *._*
+
+# Bundler #
+###########
+.bundle
+vendor/ruby
