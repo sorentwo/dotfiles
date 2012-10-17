@@ -22,8 +22,7 @@ let mapleader=" "
 
 syntax on
 set background=dark
-let g:solarized_termcolors=16
-colorscheme solarized
+colorscheme base16-tomorrow
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Search
@@ -184,6 +183,9 @@ nmap <leader>l :set list!<CR>
 
 " Use a more logical Y
 nmap Y y$
+
+" Force hamstache syntax highlighting
+au Bufread,BufNewFile *.hamstache set filetype=haml
 
 " remap the tab key to do autocompletion or indentation depending on the
 " context (from http://www.vim.org/tips/tip.php?tip_id=102)
