@@ -1,16 +1,16 @@
 [core]
-	editor = /usr/bin/vim
-	excludesfile = ~/.gitignore
+  editor = /usr/bin/vim
+  excludesfile = ~/.gitignore
 [user]
-	name = Parker Selbert
-	email = parker@sorentwo.com
+  name = Parker Selbert
+  email = parker@sorentwo.com
 [color]
   ui = true
   diff = auto
   status = auto
   branch = auto
 [merge]
-	tool = opendiff
+  tool = opendiff
 [alias]
   c    = commit -m
   a    = add -A
@@ -19,9 +19,11 @@
   ir   = !git rebase -i origin/master
   cob  = checkout -b
   mf   = merge --no-ff
-	st   = status -sb
+  st   = status -sb
   rmb  = !sh -c 'git branch -D $1 && git push origin :$1' -
   who  = shortlog -n -s --no-merges
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 [format]
-	pretty = oneline
+  pretty = oneline
+[heroku]
+  account = dscout
