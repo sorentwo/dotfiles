@@ -64,9 +64,5 @@ export EDITOR=vim
 #################################################################################
 
 alias bundle='nocorrect bundle'
-alias mvim='nocorrect mvim'
 alias rspec='nocorrect rspec'
-
-# Github
-#################################################################################
-eval "$(hub alias -s)"
+alias lein='nocorrect lein'
