@@ -64,5 +64,6 @@ export EDITOR=vim
 #################################################################################
 
 alias bundle='nocorrect bundle'
-alias rspec='nocorrect rspec'
 alias lein='nocorrect lein'
+alias rspec='nocorrect rspec'
+alias tmux='nocorrect tmux'
