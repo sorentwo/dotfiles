@@ -16,6 +16,19 @@ filetype plugin indent on
 
 let mapleader=" "
 
+nmap <Leader>a= :Tab /=<CR>
+vmap <Leader>a= :Tab /=<CR>
+nmap <Leader>a: :Tab /:\zs<CR>
+vmap <Leader>a: :Tab /:\zs<CR>
+map  <Leader>c :Ack<space>
+map  <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
+map  <Leader>l :set invhls <CR>
+nmap <leader>l :set list!<CR>
+map  <Leader>r :CtrlP<CR>
+map  <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
+map  <leader>t :call RunTestFile()<cr>
+map  <leader>T :w\|:silent !tmux send-keys -t bottom 'rspec -f d -t focus' C-m <CR>\|:redraw!<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colorscheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -115,7 +128,6 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
-map <Leader>l :set invhls <CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Let me scroll
@@ -154,24 +166,15 @@ set backspace=indent,eol,start
 set visualbell
 
 " NERDTree
-map <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
 let NERDTreeCaseSensitiveSort = 1
 let NERDTreeWinPos = "right"
 let NERDTreeQuitOnOpen = 1
 
-" Tabularize
-nmap <Leader>a= :Tab /=<CR>
-vmap <Leader>a= :Tab /=<CR>
-nmap <Leader>a: :Tab /:\zs<CR>
-vmap <Leader>a: :Tab /:\zs<CR>
-
 " CtrlP
-map <Leader>r :CtrlP<CR>
 set wildignore+=*/.git/*,**/vendor/ruby/**,**/vendor/jruby/**,**/bin/*,**/tmp/*,*/.*
 let g:ctrlp_match_window_reversed = 1
 
 " Ack
-map <Leader>c :Ack<space>
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " Ruby 1.8 -> 1.9 Hash Replacement
@@ -179,9 +182,6 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " TextObj / Matchit
 runtime macros/matchit.vim
-
-" Toggle whitespace invisibles
-nmap <leader>l :set list!<CR>
 
 " Use a more logical Y
 nmap Y y$
@@ -255,9 +255,6 @@ nnoremap <leader>. :call OpenTestAlternate()<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Running Tests
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>t :call RunTestFile()<cr>
-map <leader>T :w\|:silent !tmux send-keys -t bottom 'rspec -f d -t focus' C-m <CR>\|:redraw!<CR>
-
 function! RunTestFile(...)
   if a:0
       let command_suffix = a:1
