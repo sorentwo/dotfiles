@@ -38,7 +38,7 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # Environment Variables
-################################################################################
+###############################################################################
 
 if [[ -f ~/.envrc ]]; then
   source ~/.envrc
@@ -56,14 +56,21 @@ alias vim="mvim -v"
 alias vi="mvim -v"
 
 # Preferences
-################################################################################
+###############################################################################
 
 export EDITOR=vim
 
 # Autocorrect Bypass
-#################################################################################
+###############################################################################
 
 alias bundle='nocorrect bundle'
 alias lein='nocorrect lein'
 alias rspec='nocorrect rspec'
 alias tmux='nocorrect tmux'
+
+# Heroku ######################################################################
+
+alias hcp="heroku run console -r production"
+alias hcs="heroku run console -r staging"
+alias htp="heroku logs -t -r production"
+alias hts="heroku logs -t -s staging"
