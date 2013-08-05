@@ -51,6 +51,11 @@ set notimeout
 set ttimeout
 set timeoutlen=50
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use a more logical Y
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+nmap Y y$
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Change cursor shape between modes (iTerm)
@@ -136,6 +141,15 @@ set smartcase
 set mouse=nicr
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Navigate splits more easily
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Tab completion options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -165,32 +179,53 @@ set backspace=indent,eol,start
 " Less Annoying Bell
 set visualbell
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let NERDTreeCaseSensitiveSort = 1
 let NERDTreeWinPos = "right"
 let NERDTreeQuitOnOpen = 1
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CtrlP
-set wildignore+=*/.git/*,**/vendor/ruby/**,**/vendor/jruby/**,**/bin/*,**/tmp/*,*/.*
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set wildignore+=*/.git/*,**/vendor/ruby/**,**/vendor/jruby/**,**/tmp/*,*/.*
 let g:ctrlp_match_window_reversed = 1
 
-" Ack
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ack - Use Silver Searcher
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ruby 1.8 -> 1.9 Hash Replacement
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 :nnoremap <silent> <F10> :%s/\v:(\w+)\s?\=\>/\1:/g<CR>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TextObj / Matchit
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 runtime macros/matchit.vim
 
-" Use a more logical Y
-nmap Y y$
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Filetype & Syntax Coercion
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Force hamstache syntax highlighting
 au Bufread,BufNewFile *.hamstache set filetype=haml
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Autocomplete
 " remap the tab key to do autocompletion or indentation depending on the
 " context (from http://www.vim.org/tips/tip.php?tip_id=102)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 function! InsertTabWrapper()
     let col = col('.') - 1
     if !col || getline('.')[col - 1] !~ '\k'
