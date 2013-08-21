@@ -67,10 +67,20 @@ alias bundle='nocorrect bundle'
 alias lein='nocorrect lein'
 alias rspec='nocorrect rspec'
 alias tmux='nocorrect tmux'
+alias bower='noglob bower'
 
-# Heroku ######################################################################
+# Heroku
+###############################################################################
 
 alias hcp="heroku run console -r production"
 alias hcs="heroku run console -r staging"
 alias htp="heroku logs -t -r production"
 alias hts="heroku logs -t -s staging"
+
+# Global Convenience
+###############################################################################
+
+alias arp="ack -l '$1' | xargs perl -pi -E 's/$1/$2/g'"
+
+# added by travis gem
+source /Users/pselbert/.travis/travis.sh
