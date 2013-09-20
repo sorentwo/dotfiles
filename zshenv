@@ -1,9 +1,11 @@
 # Paths #######################################################################
 
 typeset -U path
-path=(./bin /usr/local/bin /usr/bin $path)
+path=(/usr/local/bin /usr/bin /usr/local/share/npm/bin $HOME/.rbenv/bin $path)
 
 # rbenv #######################################################################
 
-export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+
+# Prepend local bin, binstubs over global gems
+path=(./bin $path)
