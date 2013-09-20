@@ -192,7 +192,7 @@ let NERDTreeQuitOnOpen = 1
 " CtrlP
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set wildignore+=*/.git/*,**/vendor/ruby/**,**/vendor/jruby/**,**/tmp/*,*/.*
+set wildignore+=*/.git/*,*/bower_components/**,*/node_modules/**,*/vendor/ruby/**,*/vendor/jruby/**,*/tmp/*,*/.*
 let g:ctrlp_match_window_reversed = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
