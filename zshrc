@@ -56,17 +56,17 @@ export EDITOR=vim
 # Autocorrect Bypass
 ###############################################################################
 
-alias bundle='nocorrect bundle'
+alias bower='noglob bower'
+alias cap='nocorrect cap'
 alias lein='nocorrect lein'
 alias rspec='nocorrect rspec'
 alias tmux='nocorrect tmux'
-alias bower='noglob bower'
 
 # Heroku
 ###############################################################################
 
-alias hcp="heroku run console -r production"
-alias hcs="heroku run console -r staging"
+alias hcp="heroku run rails console -r production"
+alias hcs="heroku run rails console -r staging"
 alias htp="heroku logs -t -r production"
 alias hts="heroku logs -t -s staging"
 
