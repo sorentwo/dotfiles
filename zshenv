@@ -1,7 +1,7 @@
 # Paths #######################################################################
 
 typeset -U path
-path=(/usr/local/bin /usr/bin /usr/local/share/npm/bin $HOME/.rbenv/bin $path)
+path=($HOME/.rbenv/shims /usr/local/bin /usr/bin /usr/local/share/npm/bin $HOME/.rbenv/bin $path)
 
 # rbenv #######################################################################
 
