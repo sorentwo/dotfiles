@@ -220,6 +220,9 @@ runtime macros/matchit.vim
 " Force hamstache syntax highlighting
 au Bufread,BufNewFile *.hamstache set filetype=haml
 
+" Force markdown to hard wrap
+au BufRead,BufNewFile *.md setlocal textwidth=80
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocomplete
 " remap the tab key to do autocompletion or indentation depending on the
