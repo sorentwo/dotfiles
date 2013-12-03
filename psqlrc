@@ -1,0 +1,19 @@
+\set QUIET 1
+-- Display of how long each SQL statement takes in ms
+\timing
+\set PROMPT1 '%[%033[1m%]%M/%/%R%[%033[0m%]%# '
+\set PROMPT2 ''
+-- Errors are only ignored in interactive sessions
+\set ON_ERROR_ROLLBACK interactive
+-- More verbose errors
+\set VERBOSITY verbose
+-- Expanded table formatting mode
+\x auto
+-- Per database history
+\set HISTFILE ~/.psql_history- :DBNAME
+\set HISTCONTROL ignoredups
+-- Display null columns as null, not empty
+\pset null [null]
+-- Automatically capitalize keyword completions
+\set COMP_KEYWORD_CASE upper
+\unset QUIET
