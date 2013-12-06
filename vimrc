@@ -22,11 +22,12 @@ nmap <Leader>a: :Tab /:\zs<CR>
 vmap <Leader>a: :Tab /:\zs<CR>
 map  <Leader>c :Ack<space>
 map  <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
-map  <Leader>l :set invhls <CR>
+map  <leader>e :w\|:!bundle exec kitabu export<CR>
+map  <Leader>l :set invhls<CR>
 nmap <leader>l :set list!<CR>
 map  <Leader>r :CtrlP<CR>
 map  <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
-map  <leader>t :call RunTestFile()<cr>
+map  <leader>t :call RunTestFile()<CR>
 map  <leader>T :w\|:silent !tmux send-keys -t bottom 'rspec -f d -t focus' C-m <CR>\|:redraw!<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
