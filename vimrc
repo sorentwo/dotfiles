@@ -20,6 +20,7 @@ nmap <Leader>a= :Tab /=<CR>
 vmap <Leader>a= :Tab /=<CR>
 nmap <Leader>a: :Tab /:\zs<CR>
 vmap <Leader>a: :Tab /:\zs<CR>
+map  <Leader>bd :bufdo bd!<CR>
 map  <Leader>c :Ack<space>
 map  <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
 map  <leader>e :w\|:!bundle exec kitabu export<CR>
