@@ -21,9 +21,12 @@
   mf   = merge --no-ff
   st   = status -sb
   rmb  = !sh -c 'git branch -D $1 && git push origin :$1' -
+  rpo  = remote prune origin
   who  = shortlog -n -s --no-merges
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 [format]
   pretty = oneline
-[heroku]
-  account = dscout
+[github]
+	user = sorentwo
+[push]
+	default = simple
