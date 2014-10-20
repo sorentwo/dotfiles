@@ -225,6 +225,8 @@ au Bufread,BufNewFile *.hamstache set filetype=haml
 " Force markdown to hard wrap
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
+au Bufread,BufNewFile *.cap set filetype=ruby
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocomplete
 " remap the tab key to do autocompletion or indentation depending on the
