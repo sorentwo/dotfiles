@@ -37,7 +37,7 @@ map  <leader>T :w\|:silent !tmux send-keys -t bottom 'rspec -f d -t focus' C-m <
 
 syntax on
 set background=dark
-colorscheme base16-tomorrow
+colorscheme base16-twilight
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Search
@@ -208,6 +208,20 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 :nnoremap <silent> <F10> :%s/\v:(\w+)\s?\=\>/\1:/g<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Quickfix to Args
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
+
+function! QuickfixFilenames()
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+
+  return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TextObj / Matchit
