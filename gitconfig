@@ -12,7 +12,6 @@
 [merge]
   tool = opendiff
 [alias]
-  c    = commit -m
   a    = add -A
   aa   = !git add -A . && git status
   up   = !git fetch origin && git rebase origin/master
