@@ -54,3 +54,8 @@ alias vfg="fg &>/dev/null || vim"
 ###############################################################################
 
 export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
+
+# Go Variables
+###############################################################################
+
+export GOPATH=$HOME/Work/Code/go
