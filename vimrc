@@ -7,7 +7,7 @@ set nocompatible
 filetype on " Fixes exit status 1 issue for git
 filetype off
 call pathogen#helptags()
-call pathogen#runtime_append_all_bundles()
+call pathogen#infect()
 filetype plugin indent on
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
