@@ -29,3 +29,5 @@
 	user = sorentwo
 [push]
 	default = simple
+[heroku]
+	account = sorentwo
