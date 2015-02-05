@@ -40,6 +40,7 @@ alias bower='noglob bower'
 alias cap='nocorrect cap'
 alias lein='nocorrect lein'
 alias rspec='nocorrect rspec'
+alias spring='nocorrect spring'
 alias tmux='nocorrect tmux'
 
 # Global Convenience
