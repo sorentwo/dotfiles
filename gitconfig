@@ -14,15 +14,16 @@
 [alias]
   a    = add -A
   aa   = !git add -A . && git status
-  up   = !git fetch origin && git rebase origin/master
-  ir   = !git rebase -i origin/master
   cob  = checkout -b
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  ir   = !git rebase -i origin/master
   mf   = merge --no-ff
-  st   = status -sb
   rmb  = !sh -c 'git branch -D $1 && git push origin :$1' -
   rpo  = remote prune origin
+  st   = status -sb
+  sur = submodule update --remote
+  up   = !git fetch origin && git rebase origin/master
   who  = shortlog -n -s --no-merges
-  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 [format]
   pretty = oneline
 [github]
