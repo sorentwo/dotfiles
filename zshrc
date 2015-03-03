@@ -60,3 +60,6 @@ export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
 ###############################################################################
 
 export GOPATH=$HOME/Work/Code/go
+
+export NVM_DIR="/Users/pselbert/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
