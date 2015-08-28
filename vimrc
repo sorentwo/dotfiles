@@ -24,8 +24,6 @@ map  <Leader>bd :bufdo bd!<CR>
 map  <Leader>c :Ack<space>
 map  <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
 map  <leader>e :w\|:!bundle exec kitabu export<CR>
-map  <Leader>l :set invhls<CR>
-nmap <leader>l :set list!<CR>
 map  <Leader>r :CtrlP<CR>
 map  <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
 map  <leader>t :call RunTestFile()<CR>
@@ -239,6 +237,7 @@ au Bufread,BufNewFile *.hamstache set filetype=haml
 " Force markdown to hard wrap
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
+" Capistrano "recipies" are just Ruby
 au Bufread,BufNewFile *.cap set filetype=ruby
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -261,14 +260,6 @@ inoremap <s-tab> <c-n>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Toggle Functions <F?>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Toggle Pasting
-:set pastetoggle=<F2>
-
-" Toggle Highlighting
-:nnoremap <silent> <F3> :nohl<CR>
-
-" Toggle Spelling
-:map <F4> :setlocal spell! spelllang=en_us<CR>
 
 " Remove any trailing whitespace
 :nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
