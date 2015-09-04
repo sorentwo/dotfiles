@@ -1,14 +1,55 @@
 set nocompatible
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pathogen
+" NeoBundle
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-filetype on " Fixes exit status 1 issue for git
-filetype off
-call pathogen#helptags()
-call pathogen#infect()
+if 0 | endif
+
+if has('vim_starting')
+ if &compatible
+   set nocompatible
+ endif
+
+ set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'chriskempson/base16-vim'
+NeoBundle 'godlygeek/tabular'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'mileszs/ack.vim'
+NeoBundle 'scrooloose/nerdtree'
+
+NeoBundle 'tpope/vim-commentary'
+NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tpope/vim-eunuch'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-haml'
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 'tpope/vim-rails'
+NeoBundle 'tpope/vim-rake'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-surround'
+
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'nelstrom/vim-textobj-rubyblock'
+
+NeoBundle 'ekalinin/Dockerfile.vim'
+NeoBundle 'elixir-lang/vim-elixir'
+NeoBundle 'fatih/vim-go'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'vim-ruby/vim-ruby'
+
+call neobundle#end()
+
 filetype plugin indent on
+
+NeoBundleCheck
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader

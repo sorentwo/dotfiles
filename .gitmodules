@@ -79,3 +79,6 @@
 [submodule "vim-unimpaired"]
 	path = vim-unimpaired
 	url = git@github.com:tpope/vim-unimpaired.git
+[submodule "vim/bundle/neobundle.vim"]
+	path = vim/bundle/neobundle.vim
+	url = https://github.com/Shougo/neobundle.vim
