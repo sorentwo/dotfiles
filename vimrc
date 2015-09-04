@@ -34,6 +34,7 @@ NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-rake'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-unimpaired'
 
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'nelstrom/vim-textobj-rubyblock'
