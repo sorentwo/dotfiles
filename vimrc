@@ -18,12 +18,15 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+" Utilities
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'godlygeek/tabular'
+NeoBundle 'janko-m/vim-test'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'scrooloose/nerdtree'
 
+" Tim Pope
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-eunuch'
@@ -36,13 +39,16 @@ NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-unimpaired'
 
+" Text Navigation
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'nelstrom/vim-textobj-rubyblock'
 
+" Languages
 NeoBundle 'ekalinin/Dockerfile.vim'
 NeoBundle 'elixir-lang/vim-elixir'
 NeoBundle 'fatih/vim-go'
 NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'mxw/vim-jsx'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'vim-ruby/vim-ruby'
 
@@ -77,7 +83,7 @@ map  <leader>T :w\|:silent !tmux send-keys -t bottom 'rspec -f d -t focus' C-m <
 
 syntax on
 set background=dark
-colorscheme base16-twilight
+colorscheme base16-default
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Search
@@ -116,6 +122,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set nobackup
+set nowritebackup
 set nowritebackup
 set backupdir=~/.vim/tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim/tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -229,7 +236,6 @@ set visualbell
 let NERDTreeCaseSensitiveSort = 1
 let NERDTreeWinPos = "right"
 let NERDTreeQuitOnOpen = 1
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CtrlP
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -307,79 +313,11 @@ inoremap <s-tab> <c-n>
 :nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Testing functions borrowed from Gary Berhardt
-" [github.com/garybernhardt/dotfiles/blob/master/.vimrc]
+" Test Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Switch between test and production code
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! OpenTestAlternate()
-  let new_file = AlternateForCurrentFile()
-  exec ':e ' . new_file
-endfunction
-function! AlternateForCurrentFile()
-  let current_file = expand("%")
-  let new_file = current_file
-  let in_spec = match(current_file, '^spec/') != -1
-  let going_to_spec = !in_spec
-  let in_app = match(current_file, '\<controllers\>') != -1 || match(current_file, '\<models\>') != -1 || match(current_file, '\<views\>') || match(current_file, '\<helpers\>') != -1
-  if going_to_spec
-    if in_app
-      let new_file = substitute(new_file, '^app/', '', '')
-    end
-    let new_file = substitute(new_file, '\.rb$', '_spec.rb', '')
-    let new_file = 'spec/' . new_file
-  else
-    let new_file = substitute(new_file, '_spec\.rb$', '.rb', '')
-    let new_file = substitute(new_file, '^spec/', '', '')
-    if in_app
-      let new_file = 'app/' . new_file
-    end
-  endif
-  return new_file
-endfunction
-nnoremap <leader>. :call OpenTestAlternate()<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Running Tests
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! RunTestFile(...)
-  if a:0
-      let command_suffix = a:1
-  else
-      let command_suffix = ""
-  endif
-
-  " Run the tests for the previously-marked file.
-  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.js\)$') != -1
-  if in_test_file
-      call SetTestFile()
-  elseif !exists("t:grb_test_file")
-      return
-  end
-  call RunTests(t:grb_test_file . command_suffix)
-endfunction
-
-function! RunNearestTest()
-  let spec_line_number = line('.')
-  call RunTestFile(":" . spec_line_number . " -b")
-endfunction
-
-function! SetTestFile()
-  " Set the spec file that tests will be run for.
-  let t:grb_test_file=@%
-endfunction
-
-" Write the file and run tests for the given filename
-function! RunTests(filename)
-  :w
-
-  if match(a:filename, '\.feature$') != -1
-      exec ":!cucumber -r features " . a:filename
-  elseif match(a:filename, '_test\.js$') != -1
-      exec ":!npm test "
-  else
-      exec ":!rspec --color " . a:filename
-  end
-endfunction
+nmap <silent> <leader>t :w\|:TestFile<CR>
+nmap <silent> <leader>T :w\|:TestNearest<CR>
+nmap <silent> <leader>a :w\|:TestSuite<CR>
+nmap <silent> <leader>l :w\|:TestLast<CR>
+nmap <silent> <leader>g :w\|:TestVisit<CR>
