@@ -15,6 +15,7 @@
   a    = add -A
   aa   = !git add -A . && git status
   cob  = checkout -b
+  cor  = !sh -c 'git checkout -b $1 origin/$1' -
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   ir   = !git rebase -i origin/master
   mf   = merge --no-ff
