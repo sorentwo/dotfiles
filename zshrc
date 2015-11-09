@@ -17,6 +17,17 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
+# Paths
+########################################################################
+
+typeset -U path
+path=(./bin $HOME/.rbenv/shims $HOME/Work/Code/go/bin /usr/local/bin /usr/bin /usr/local/share/npm/bin $HOME/.rbenv/bin $path)
+
+# rbenv
+###############################################################################
+
+eval "$(rbenv init -)"
+
 # Bundler
 ###############################################################################
 
@@ -48,7 +59,7 @@ alias tmux='nocorrect tmux'
 
 alias agpl="ag -l '$1' | xargs perl -pi -E 's/$1/$2/g'"
 alias rds="redis-server /usr/local/etc/redis.conf"
-alias pgs="pg_ctl start -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log"
+alias pgs="pg_ctl start -D /usr/local/var/postgres-9.4 -l /usr/local/var/postgres-9.4/server.log"
 alias vfg="fg &>/dev/null || vim"
 
 # SSL Certification
