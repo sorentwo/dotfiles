@@ -33,6 +33,7 @@ NeoBundle 'tpope/vim-eunuch'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-haml'
 NeoBundle 'tpope/vim-markdown'
+NeoBundle 'tpope/vim-projectionist'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-rake'
 NeoBundle 'tpope/vim-repeat'
@@ -45,7 +46,7 @@ NeoBundle 'nelstrom/vim-textobj-rubyblock'
 
 " Languages
 NeoBundle 'ekalinin/Dockerfile.vim'
-NeoBundle 'elixir-lang/vim-elixir'
+NeoBundle 'sorentwo/vim-elixir'
 NeoBundle 'fatih/vim-go'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'mxw/vim-jsx'
@@ -303,12 +304,12 @@ au Bufread,BufNewFile *.cap set filetype=ruby
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~ '\k'
+    return "\<tab>"
+  else
+    return "\<c-p>"
+  endif
 endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
@@ -329,3 +330,14 @@ nmap <silent> <leader>T :w\|:TestNearest<CR>
 nmap <silent> <leader>a :w\|:TestSuite<CR>
 nmap <silent> <leader>l :w\|:TestLast<CR>
 nmap <silent> <leader>g :w\|:TestVisit<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Projections
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:projectionist_heuristics = {
+  \ "mix.exs": {
+  \   "*": {"make": "mix compile"},
+  \   "lib/*.ex": {"alternate": "test/{}_test.exs"},
+  \   "test/*_test.exs": {"alternate": "lib/{}.ex"},
+  \ }}
