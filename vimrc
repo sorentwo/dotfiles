@@ -25,6 +25,8 @@ NeoBundle 'janko-m/vim-test'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'vim-airline/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
 
 " Tim Pope
 NeoBundle 'tpope/vim-commentary'
