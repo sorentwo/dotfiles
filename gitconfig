@@ -23,7 +23,7 @@
   rpo  = remote prune origin
   st   = status -sb
   sur = submodule update --remote
-  up   = !git fetch origin && git rebase origin/master
+  up   = !git fetch origin master && git rebase origin/master && git fetch -p origin
   who  = shortlog -n -s --no-merges
 [format]
   pretty = oneline
