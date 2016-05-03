@@ -25,8 +25,6 @@ NeoBundle 'janko-m/vim-test'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'vim-airline/vim-airline'
-NeoBundle 'vim-airline/vim-airline-themes'
 
 " Tim Pope
 NeoBundle 'tpope/vim-commentary'
@@ -339,7 +337,11 @@ nmap <silent> <leader>g :w\|:TestVisit<CR>
 
 let g:projectionist_heuristics = {
   \ "mix.exs": {
-  \   "*": {"make": "mix compile"},
-  \   "lib/*.ex": {"alternate": "test/{}_test.exs"},
-  \   "test/*_test.exs": {"alternate": "lib/{}.ex"},
+  \   "*": {"make": "mix compile", "start": "iex -S mix"},
+  \   "lib/*.ex": {"alternate": "test/{}_test.exs", "type": "source"},
+  \   "test/*_test.exs": {"alternate": "lib/{}.ex", "type": "test"},
+  \ },
+  \ "web/web.ex": {
+  \   "web/*.ex": {"alternate": "test/{}_test.exs", "type": "source"},
+  \   "test/*_test.exs": {"alternate": "web/{}.ex", "type": "test"},
   \ }}
