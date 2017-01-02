@@ -1,63 +1,36 @@
-set nocompatible
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NeoBundle
+" Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-if 0 | endif
+call plug#begin('~/.config/nvim/plugged')
 
-if has('vim_starting')
- if &compatible
-   set nocompatible
- endif
-
- set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-NeoBundleFetch 'Shougo/neobundle.vim'
+" Colors
+Plug 'chriskempson/base16-vim'
 
 " Utilities
-NeoBundle 'chriskempson/base16-vim'
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'janko-m/vim-test'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'mileszs/ack.vim'
-NeoBundle 'scrooloose/nerdtree'
-
-" Tim Pope
-NeoBundle 'tpope/vim-commentary'
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'tpope/vim-eunuch'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-haml'
-NeoBundle 'tpope/vim-markdown'
-NeoBundle 'tpope/vim-projectionist'
-NeoBundle 'tpope/vim-rails'
-NeoBundle 'tpope/vim-rake'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-unimpaired'
-
-" Text Navigation
-NeoBundle 'kana/vim-textobj-user'
-NeoBundle 'nelstrom/vim-textobj-rubyblock'
+Plug 'godlygeek/tabular'
+Plug 'janko-m/vim-test'
+Plug 'kien/ctrlp.vim'
+Plug 'mileszs/ack.vim'
+Plug 'neomake/neomake'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 
 " Languages
-NeoBundle 'ekalinin/Dockerfile.vim'
-NeoBundle 'sorentwo/vim-elixir'
-NeoBundle 'fatih/vim-go'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'mxw/vim-jsx'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'vim-ruby/vim-ruby'
+Plug 'sheerun/vim-polyglot'
+Plug 'aliou/sql-heredoc.vim', { 'for': 'ruby' }
 
-call neobundle#end()
+" Frameworks
+Plug 'c-brenn/phoenix.vim'
+Plug 'tpope/vim-rails'
 
-filetype plugin indent on
-
-NeoBundleCheck
+call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader
@@ -72,11 +45,8 @@ vmap <Leader>a: :Tab /:\zs<CR>
 map  <Leader>bd :bufdo bd!<CR>
 map  <Leader>c :Ack<space>
 map  <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
-map  <leader>e :w\|:!bundle exec kitabu export<CR>
 map  <Leader>r :CtrlP<CR>
 map  <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
-map  <leader>t :call RunTestFile()<CR>
-map  <leader>T :w\|:silent !tmux send-keys -t bottom 'rspec -f d -t focus' C-m <CR>\|:redraw!<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
@@ -92,7 +62,7 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 
 syntax on
 set background=dark
-colorscheme base16-default
+colorscheme base16-default-dark
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Search
@@ -132,23 +102,8 @@ endif
 
 set nobackup
 set nowritebackup
-set nowritebackup
 set backupdir=~/.vim/tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim/tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Undo buffers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-set history=1000
-set undolevels=1000
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Display Incomplete Commands
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-set showcmd
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Display Prefrences
@@ -156,10 +111,10 @@ set showcmd
 
 set hidden
 set ruler
-set autoindent
 set copyindent
 set number
 set numberwidth=5
+set showcmd
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Whitespace
@@ -193,12 +148,6 @@ set ignorecase
 set smartcase
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Let me scroll
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-set mouse=nicr
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Navigate splits more easily
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -229,14 +178,10 @@ set statusline+=%-14(%l,%c%V%) " line, character
 set statusline+=%<%P           " file position
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Intuitive backspacing in insert mode
+" Less Annoying Bell
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set backspace=indent,eol,start
-
-" Less Annoying Bell
 set visualbell
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
@@ -245,6 +190,7 @@ set visualbell
 let NERDTreeCaseSensitiveSort = 1
 let NERDTreeWinPos = "right"
 let NERDTreeQuitOnOpen = 1
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CtrlP
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -267,6 +213,7 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Quickfix to Args
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
 
 function! QuickfixFilenames()
@@ -277,12 +224,6 @@ function! QuickfixFilenames()
 
   return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 endfunction
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" TextObj / Matchit
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-runtime macros/matchit.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Filetype & Syntax Coercion
@@ -331,17 +272,39 @@ nmap <silent> <leader>a :w\|:TestSuite<CR>
 nmap <silent> <leader>l :w\|:TestLast<CR>
 nmap <silent> <leader>g :w\|:TestVisit<CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Projections
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Neomake
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:projectionist_heuristics = {
-  \ "mix.exs": {
-  \   "*": {"make": "mix compile", "start": "iex -S mix"},
-  \   "lib/*.ex": {"alternate": "test/{}_test.exs", "type": "source"},
-  \   "test/*_test.exs": {"alternate": "lib/{}.ex", "type": "test"},
-  \ },
-  \ "web/web.ex": {
-  \   "web/*.ex": {"alternate": "test/{}_test.exs", "type": "source"},
-  \   "test/*_test.exs": {"alternate": "web/{}.ex", "type": "test"},
-  \ }}
+augroup localneomake
+  autocmd! BufWritePost * Neomake
+augroup END
+
+" Don't tell me to use smartquotes in markdown ok?
+let g:neomake_markdown_enabled_makers = []
+
+" Enable full credo verification
+let g:neomake_elixir_enabled_makers = ['mix', 'mycredo']
+function NeomakeCredoErrorType(entry)
+  if a:entry.type ==# 'F'     " Refactoring opportunities
+    let type = 'W'
+  elseif a:entry.type ==# 'D' " Software design suggestions
+    let type = 'I'
+  elseif a:entry.type ==# 'W' " Warnings
+    let type = 'W'
+  elseif a:entry.type ==# 'R' " Readability suggestions
+    let type = 'I'
+  elseif a:entry.type ==# 'C' " Convention violation
+    let type = 'W'
+  else
+    let type = 'M'            " Everything else is a message
+  endif
+  let a:entry.type = type
+endfunction
+
+let g:neomake_elixir_mycredo_maker = {
+  \ 'exe': 'mix',
+  \ 'args': ['credo', 'list', '%:p', '--format=oneline'],
+  \ 'errorformat': '[%t] %. %f:%l:%c %m,[%t] %. %f:%l %m',
+  \ 'postprocess': function('NeomakeCredoErrorType')
+  \ }
