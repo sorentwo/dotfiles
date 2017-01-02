@@ -1,5 +1,5 @@
 [core]
-  editor = /usr/bin/vim
+  editor = nvim
   excludesfile = ~/.gitignore
 [user]
   name = Parker Selbert
@@ -14,6 +14,7 @@
 [alias]
   a    = add -A
   aa   = !git add -A . && git status
+  bd   = branch -d
   cob  = checkout -b
   cor  = !sh -c 'git checkout -b $1 origin/$1' -
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
