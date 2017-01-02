@@ -9,6 +9,7 @@ alias zmv='noglob zmv'
 alias zcp='noglob zmv -C'
 alias zln='noglob zmv -L'
 alias zsy='noglob zmv -Ls'
+alias rake='noglob rake'
 
 autoload -Uz compinit
 compinit
@@ -27,7 +28,7 @@ source $ZSH/oh-my-zsh.sh
 ########################################################################
 
 typeset -U path
-path=(./bin $HOME/.rbenv/shims $HOME/Work/Code/go/bin /usr/local/bin /usr/bin /usr/local/share/npm/bin $HOME/.rbenv/bin $path)
+path=(./bin $HOME/.rbenv/shims $HOME/Work/Code/go/bin $HOME/.cargo/bin $HOME/.yarn/bin /usr/local/opt/go/libexec/bin /usr/local/bin /usr/bin $HOME/.rbenv/bin $path)
 
 # rbenv
 ###############################################################################
@@ -39,21 +40,20 @@ eval "$(rbenv init -)"
 
 alias be='bundle exec'
 
-# Macvim Aliases
+# Vim Aliases
 ###############################################################################
 
-alias vim="mvim -v"
-alias vi="mvim -v"
+alias vim="nvim"
+alias vi="nvim"
 
 # Preferences
 ###############################################################################
 
-export EDITOR=vim
+export EDITOR=nvim
 
 # Autocorrect Bypass
 ###############################################################################
 
-alias bower='noglob bower'
 alias cap='nocorrect cap'
 alias lein='nocorrect lein'
 alias rspec='nocorrect rspec'
@@ -65,8 +65,6 @@ alias tmux='nocorrect tmux'
 
 alias agpl="ag -l '$1' | xargs perl -pi -E 's/$1/$2/g'"
 alias rds="redis-server /usr/local/etc/redis.conf"
-alias pgs="pg_ctl start -D /usr/local/var/postgres-9.4 -l /usr/local/var/postgres-9.4/server.log"
-alias vfg="fg &>/dev/null || vim"
 
 # SSL Certification
 ###############################################################################
@@ -77,6 +75,3 @@ export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
 ###############################################################################
 
 export GOPATH=$HOME/Work/Code/go
-
-export NVM_DIR="/Users/pselbert/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
