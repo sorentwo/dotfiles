@@ -30,6 +30,8 @@ Plug 'aliou/sql-heredoc.vim', { 'for': 'ruby' }
 Plug 'c-brenn/phoenix.vim'
 Plug 'tpope/vim-rails'
 
+filetype plugin indent on
+
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -55,6 +57,7 @@ map  <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
+let NERDTreeShowHidden=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colorscheme
@@ -155,7 +158,7 @@ map <C-l> <C-w>l
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,jruby/*,ruby/*
+set wildignore+=*/.git/*,*/node_modules/**,*/vendor/ruby/**,*/tmp/*
 set complete=.,w,t
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -189,7 +192,6 @@ let NERDTreeQuitOnOpen = 1
 " CtrlP
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set wildignore+=*/.git/*,*/bower_components/**,*/node_modules/**,*/vendor/ruby/**,*/vendor/jruby/**,*/tmp/*,*/.*
 let g:ctrlp_match_window_reversed = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -265,6 +267,7 @@ nmap <silent> <leader>T :w\|:TestNearest<CR>
 nmap <silent> <leader>a :w\|:TestSuite<CR>
 nmap <silent> <leader>l :w\|:TestLast<CR>
 nmap <silent> <leader>g :w\|:TestVisit<CR>
+let test#strategy="neovim"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Neomake
