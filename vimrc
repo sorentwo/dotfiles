@@ -6,6 +6,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Colors
 Plug 'chriskempson/base16-vim'
+Plug 'morhetz/gruvbox'
 
 " Utilities
 Plug 'godlygeek/tabular'
@@ -15,6 +16,7 @@ Plug 'mileszs/ack.vim'
 Plug 'neomake/neomake'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-projectionist'
@@ -24,13 +26,12 @@ Plug 'tpope/vim-unimpaired'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
-Plug 'aliou/sql-heredoc.vim', { 'for': 'ruby' }
+Plug 'aliou/sql-heredoc.vim'
+Plug 'tpope/vim-markdown'
 
 " Frameworks
 Plug 'c-brenn/phoenix.vim'
 Plug 'tpope/vim-rails'
-
-filetype plugin indent on
 
 call plug#end()
 
@@ -45,7 +46,7 @@ vmap <Leader>a= :Tab /=<CR>
 nmap <Leader>a: :Tab /:\zs<CR>
 vmap <Leader>a: :Tab /:\zs<CR>
 map  <Leader>bd :bufdo bd!<CR>
-map  <Leader>c :Ack<space>
+map  <Leader>c :Ack!<space>
 map  <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
 map  <Leader>r :CtrlP<CR>
 map  <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
@@ -57,24 +58,31 @@ map  <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
-let NERDTreeShowHidden=1
+let NERDTreeCaseSensitiveSort = 1
+let NERDTreeWinPos = "right"
+let NERDTreeQuitOnOpen = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colorscheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+set termguicolors
 syntax on
 set background=dark
-colorscheme base16-default-dark
+colorscheme gruvbox
+
+" Override the NerdTree directory color
+hi! link Directory GruvboxBlue
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Search
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set nohlsearch
+set inccommand=split
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Speed up vim
+" Speed up Vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set notimeout
@@ -110,7 +118,7 @@ set hidden
 set ruler
 set copyindent
 set number
-set numberwidth=5
+set numberwidth=3
 set showcmd
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -125,7 +133,7 @@ set expandtab
 set listchars=tab:▸\ ,trail:·,eol:¬
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Whitespace Highlighting && Deletion
+" Whitespace Highlighting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -158,7 +166,7 @@ map <C-l> <C-w>l
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set wildmode=list:longest,list:full
-set wildignore+=*/.git/*,*/node_modules/**,*/vendor/ruby/**,*/tmp/*
+set wildignore+=*/.git/*,*/node_modules/**,*/vendor/ruby/**,*/tmp/*,.DS_Store
 set complete=.,w,t
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -181,24 +189,16 @@ set statusline+=%<%P           " file position
 set visualbell
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NERDTree
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let NERDTreeCaseSensitiveSort = 1
-let NERDTreeWinPos = "right"
-let NERDTreeQuitOnOpen = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CtrlP
+" CtrlP / Ack/ Searching
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:ctrlp_match_window_reversed = 1
+let g:ctrlp_show_hidden = 1
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Ack - Use Silver Searcher
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:ackprg = 'ag --nogroup --nocolor --column'
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ruby 1.8 -> 1.9 Hash Replacement
@@ -233,6 +233,13 @@ au BufRead,BufNewFile *.md setlocal textwidth=80
 
 " Capistrano "recipies" are just Ruby
 au Bufread,BufNewFile *.cap set filetype=ruby
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Markdown
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:polyglot_disabled = ['markdown'] " Use tpope/vim-markdown instead
+let g:markdown_fenced_languages = ['sql', 'elixir', 'ruby', 'bash=sh']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocomplete
