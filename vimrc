@@ -41,15 +41,12 @@ call plug#end()
 
 let mapleader=" "
 
-nmap <Leader>a= :Tab /=<CR>
-vmap <Leader>a= :Tab /=<CR>
-nmap <Leader>a: :Tab /:\zs<CR>
-vmap <Leader>a: :Tab /:\zs<CR>
-map  <Leader>bd :bufdo bd!<CR>
-map  <Leader>c :Ack!<space>
-map  <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
-map  <Leader>r :CtrlP<CR>
-map  <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
+map <Leader>bd :bufdo bd!<CR>
+map <Leader>a :Ack!<space>
+map <Leader>md :!open -a /Applications/Marked.app %<CR>
+map <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
+map <Leader>r :CtrlP<CR>
+map <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
@@ -156,17 +153,21 @@ set smartcase
 " Navigate splits more easily
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+:tnoremap <C-h> <C-\><C-n><C-w>h
+:tnoremap <C-j> <C-\><C-n><C-w>j
+:tnoremap <C-k> <C-\><C-n><C-w>k
+:tnoremap <C-l> <C-\><C-n><C-w>l
+:nnoremap <C-h> <C-w>h
+:nnoremap <C-j> <C-w>j
+:nnoremap <C-k> <C-w>k
+:nnoremap <C-l> <C-w>l
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Tab completion options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set wildmode=list:longest,list:full
-set wildignore+=*/.git/*,*/node_modules/**,*/vendor/ruby/**,*/tmp/*,.DS_Store
+set wildignore+=*/.git/*,*/node_modules/**,*/vendor/ruby/**,*/_build/**,*/deps/**,*/tmp/*,.DS_Store
 set complete=.,w,t
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -239,7 +240,7 @@ au Bufread,BufNewFile *.cap set filetype=ruby
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:polyglot_disabled = ['markdown'] " Use tpope/vim-markdown instead
-let g:markdown_fenced_languages = ['sql', 'elixir', 'ruby', 'bash=sh']
+let g:markdown_fenced_languages = ['javascript', 'sql', 'elixir', 'ruby', 'bash=sh']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocomplete
@@ -289,7 +290,7 @@ let g:neomake_markdown_enabled_makers = []
 
 " Enable full credo verification
 let g:neomake_elixir_enabled_makers = ['mix', 'mycredo']
-function NeomakeCredoErrorType(entry)
+function! NeomakeCredoErrorType(entry)
   if a:entry.type ==# 'F'     " Refactoring opportunities
     let type = 'W'
   elseif a:entry.type ==# 'D' " Software design suggestions
