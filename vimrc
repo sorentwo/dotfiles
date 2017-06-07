@@ -5,11 +5,12 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " Colors
-Plug 'chriskempson/base16-vim'
 Plug 'morhetz/gruvbox'
+Plug 'whatyouhide/vim-gotham'
 
 " Utilities
 Plug 'godlygeek/tabular'
+Plug 'jaawerth/nrun.vim'
 Plug 'janko-m/vim-test'
 Plug 'kien/ctrlp.vim'
 Plug 'mileszs/ack.vim'
@@ -42,11 +43,15 @@ call plug#end()
 let mapleader=" "
 
 map <Leader>bd :bufdo bd!<CR>
-map <Leader>a :Ack!<space>
+map <Leader>c :Ack!<space>
+map <Leader>ed :tabe TODO<CR>
 map <Leader>md :!open -a /Applications/Marked.app %<CR>
 map <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
 map <Leader>r :CtrlP<CR>
 map <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
+map <Leader>f= :%s/\v\s{2,}\=/ =/g<CR>
+map <Leader>f> :%s/\v:(\w+)\s*\=\>\s*/\1: /g<CR>
+map <Leader>f: :%s/\v(\w+):\s{2,}/\1: /g<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
@@ -123,11 +128,13 @@ set showcmd
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set nowrap
+set linebreak
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set expandtab
 set listchars=tab:▸\ ,trail:·,eol:¬
+set showbreak=…
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Whitespace Highlighting
@@ -240,7 +247,7 @@ au Bufread,BufNewFile *.cap set filetype=ruby
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:polyglot_disabled = ['markdown'] " Use tpope/vim-markdown instead
-let g:markdown_fenced_languages = ['javascript', 'sql', 'elixir', 'ruby', 'bash=sh']
+let g:markdown_fenced_languages = ['javascript', 'json', 'sql', 'elixir', 'ruby', 'bash=sh']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocomplete
@@ -276,6 +283,7 @@ nmap <silent> <leader>a :w\|:TestSuite<CR>
 nmap <silent> <leader>l :w\|:TestLast<CR>
 nmap <silent> <leader>g :w\|:TestVisit<CR>
 let test#strategy="neovim"
+let test#filename_modifier = ":p" " required for testing elixir umbrella apps
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Neomake
@@ -313,3 +321,9 @@ let g:neomake_elixir_mycredo_maker = {
   \ 'errorformat': '[%t] %. %f:%l:%c %m,[%t] %. %f:%l %m',
   \ 'postprocess': function('NeomakeCredoErrorType')
   \ }
+
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_jsx_enabled_makers = ['eslint']
+
+au BufEnter *.js let b:neomake_javascript_eslint_exe = nrun#Which('eslint')
+au BufEnter *.jsx let b:neomake_javascript_eslint_exe = nrun#Which('eslint')
