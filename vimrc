@@ -6,15 +6,12 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Colors
 Plug 'morhetz/gruvbox'
-Plug 'whatyouhide/vim-gotham'
 
 " Utilities
 Plug 'godlygeek/tabular'
-Plug 'jaawerth/nrun.vim'
 Plug 'janko-m/vim-test'
 Plug 'kien/ctrlp.vim'
 Plug 'mileszs/ack.vim'
-Plug 'neomake/neomake'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -24,6 +21,7 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'w0rp/ale'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
@@ -31,7 +29,6 @@ Plug 'aliou/sql-heredoc.vim'
 Plug 'tpope/vim-markdown'
 
 " Frameworks
-Plug 'c-brenn/phoenix.vim'
 Plug 'tpope/vim-rails'
 
 call plug#end()
@@ -285,45 +282,10 @@ nmap <silent> <leader>g :w\|:TestVisit<CR>
 let test#strategy="neovim"
 let test#filename_modifier = ":p" " required for testing elixir umbrella apps
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Neomake
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ale
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-augroup localneomake
-  autocmd! BufWritePost * Neomake
-augroup END
-
-" Don't tell me to use smartquotes in markdown ok?
-let g:neomake_markdown_enabled_makers = []
-
-" Enable full credo verification
-let g:neomake_elixir_enabled_makers = ['mix', 'mycredo']
-function! NeomakeCredoErrorType(entry)
-  if a:entry.type ==# 'F'     " Refactoring opportunities
-    let type = 'W'
-  elseif a:entry.type ==# 'D' " Software design suggestions
-    let type = 'I'
-  elseif a:entry.type ==# 'W' " Warnings
-    let type = 'W'
-  elseif a:entry.type ==# 'R' " Readability suggestions
-    let type = 'I'
-  elseif a:entry.type ==# 'C' " Convention violation
-    let type = 'W'
-  else
-    let type = 'M'            " Everything else is a message
-  endif
-  let a:entry.type = type
-endfunction
-
-let g:neomake_elixir_mycredo_maker = {
-  \ 'exe': 'mix',
-  \ 'args': ['credo', 'list', '%:p', '--format=oneline'],
-  \ 'errorformat': '[%t] %. %f:%l:%c %m,[%t] %. %f:%l %m',
-  \ 'postprocess': function('NeomakeCredoErrorType')
-  \ }
-
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_jsx_enabled_makers = ['eslint']
-
-au BufEnter *.js let b:neomake_javascript_eslint_exe = nrun#Which('eslint')
-au BufEnter *.jsx let b:neomake_javascript_eslint_exe = nrun#Which('eslint')
+let g:ale_lint_on_text_changed = 'never' " only lint on save
+let g:ale_sign_error = '✖︎'
+let g:ale_sign_warning = '⚠'
