@@ -46,9 +46,18 @@ map <Leader>md :!open -a /Applications/Marked.app %<CR>
 map <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
 map <Leader>r :CtrlP<CR>
 map <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
-map <Leader>f= :%s/\v\s{2,}\=/ =/g<CR>
+
+" Convert hashrockets to symbols
 map <Leader>f> :%s/\v:(\w+)\s*\=\>\s*/\1: /g<CR>
+
+" Remove extra spaces in assignments
+map <Leader>f= :%s/\v\s{2,}\=/ =/g<CR>
+
+" Remove extra spaces in maps
 map <Leader>f: :%s/\v(\w+):\s{2,}/\1: /g<CR>
+
+" Remove any trailing whitespace
+map <Leader>fw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
@@ -262,13 +271,6 @@ function! InsertTabWrapper()
 endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Toggle Functions <F?>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Remove any trailing whitespace
-:nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Test Mappings
