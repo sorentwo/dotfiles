@@ -39,25 +39,31 @@ call plug#end()
 
 let mapleader=" "
 
-map <Leader>bd :bufdo bd!<CR>
-map <Leader>c :Ack!<space>
-map <Leader>ed :tabe TODO<CR>
-map <Leader>md :!open -a /Applications/Marked.app %<CR>
-map <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
-map <Leader>r :CtrlP<CR>
-map <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
+nmap <Leader>bd :bufdo bd!<CR>
+nmap <Leader>c :Ack!<space>
+nmap <Leader>ed :tabe TODO<CR>
+nmap <Leader>md :!open -a /Applications/Marked.app %<CR>
+nmap <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
+nmap <Leader>r :CtrlP<CR>
+nmap <Leader>R :CtrlPClearCache \| :CtrlP<CR>
+nmap <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
+
+" Testing
+nmap <silent> <Leader>t :w\|:TestFile<CR>
+nmap <silent> <Leader>a :w\|:TestSuite<CR>
+nmap <silent> <Leader>l :w\|:TestLast<CR>
 
 " Convert hashrockets to symbols
-map <Leader>f> :%s/\v:(\w+)\s*\=\>\s*/\1: /g<CR>
+nmap <Leader>f> :%s/\v:(\w+)\s*\=\>\s*/\1: /g<CR>
 
 " Remove extra spaces in assignments
-map <Leader>f= :%s/\v\s{2,}\=/ =/g<CR>
+nmap <Leader>f= :%s/\v\s{2,}\=/ =/g<CR>
 
 " Remove extra spaces in maps
-map <Leader>f: :%s/\v(\w+):\s{2,}/\1: /g<CR>
+nmap <Leader>f: :%s/\v(\w+):\s{2,}/\1: /g<CR>
 
 " Remove any trailing whitespace
-map <Leader>fw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+nmap <Leader>fw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
@@ -203,7 +209,7 @@ set statusline+=%<%P           " file position
 set visualbell
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CtrlP / Ack/ Searching
+" CtrlP / Ack / Searching
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:ctrlp_match_window_reversed = 1
@@ -213,12 +219,6 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Ruby 1.8 -> 1.9 Hash Replacement
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-:nnoremap <silent> <F10> :%s/\v:(\w+)\s?\=\>/\1:/g<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Quickfix to Args
@@ -239,14 +239,8 @@ endfunction
 " Filetype & Syntax Coercion
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Force hamstache syntax highlighting
-au Bufread,BufNewFile *.hamstache set filetype=haml
-
 " Force markdown to hard wrap
 au BufRead,BufNewFile *.md setlocal textwidth=80
-
-" Capistrano "recipies" are just Ruby
-au Bufread,BufNewFile *.cap set filetype=ruby
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Markdown
@@ -273,14 +267,9 @@ inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Test Mappings
+" Testing
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nmap <silent> <leader>t :w\|:TestFile<CR>
-nmap <silent> <leader>T :w\|:TestNearest<CR>
-nmap <silent> <leader>a :w\|:TestSuite<CR>
-nmap <silent> <leader>l :w\|:TestLast<CR>
-nmap <silent> <leader>g :w\|:TestVisit<CR>
 let test#strategy="neovim"
 let test#filename_modifier = ":p" " required for testing elixir umbrella apps
 
@@ -291,3 +280,4 @@ let test#filename_modifier = ":p" " required for testing elixir umbrella apps
 let g:ale_lint_on_text_changed = 'never' " only lint on save
 let g:ale_sign_error = '✖︎'
 let g:ale_sign_warning = '⚠'
+let g:ale_linters = { 'erb': [''] } " erb linting is broken
