@@ -39,7 +39,7 @@ call plug#end()
 
 let mapleader=" "
 
-nmap <Leader>bd :bufdo bd!<CR>
+nmap <Leader>bd :%bd \| e#<CR>
 nmap <Leader>c :Ack!<space>
 nmap <Leader>ed :tabe TODO<CR>
 nmap <Leader>md :!open -a /Applications/Marked.app %<CR>
@@ -185,22 +185,19 @@ set smartcase
 " Tab completion options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set wildmode=list:longest,list:full
-set wildignore+=*/.git/*,*/node_modules/**,*/vendor/ruby/**,*/_build/**,*/deps/**,*/tmp/*,.DS_Store
 set complete=.,w,t
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Status bar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set laststatus=2               " always show statusbar
+set laststatus=2              " always show statusbar
 set statusline=
-set statusline+=%-10.3n\       " buffer number
-set statusline+=%f\            " filename
-set statusline+=%h%m%r%w       " status flags
-set statusline+=%=             " right align remainder
-set statusline+=%-14(%l,%c%V%) " line, character
-set statusline+=%<%P           " file position
+set statusline+=%-10.3n\      " buffer number
+set statusline+=%f\           " filename
+set statusline+=%h%m%r%w      " status flags
+set statusline+=%=            " right align remainder
+set statusline+=%-8(%l,%c%V%) " line, character
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Less Annoying Bell
@@ -211,6 +208,9 @@ set visualbell
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CtrlP / Ack / Searching
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set wildmode=list:longest,list:full
+set wildignore+=*/.git/*,*/node_modules/**,*/vendor/ruby/**,*/_build/**,*/deps/**,*/tmp/*,.DS_Store
 
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_show_hidden = 1
@@ -270,14 +270,11 @@ inoremap <s-tab> <c-n>
 " Testing
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let test#strategy="neovim"
-let test#filename_modifier = ":p" " required for testing elixir umbrella apps
+let test#strategy = 'neovim'
+let test#filename_modifier = ':p' " required for testing elixir umbrella apps
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ale
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:ale_lint_on_text_changed = 'never' " only lint on save
-let g:ale_sign_error = '✖︎'
-let g:ale_sign_warning = '⚠'
-let g:ale_linters = { 'erb': [''] } " erb linting is broken
