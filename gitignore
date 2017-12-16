@@ -30,3 +30,7 @@
 ###########
 .bundle
 vendor/ruby
+
+# TODO #
+########
+TODO*
