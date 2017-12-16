@@ -13,7 +13,14 @@
 \set HISTFILE ~/.psql_history- :DBNAME
 \set HISTCONTROL ignoredups
 -- Display null columns as null, not empty
-\pset null [null]
+\pset null '¤'
+-- Unicode
+\pset linestyle 'unicode'
+\pset unicode_border_linestyle single
+\pset unicode_column_linestyle single
+\pset unicode_header_linestyle double
 -- Automatically capitalize keyword completions
 \set COMP_KEYWORD_CASE upper
+\setenv LESS '-iMFXSx4R'
+\setenv EDITOR '/usr/local/bin/nvim'
 \unset QUIET
