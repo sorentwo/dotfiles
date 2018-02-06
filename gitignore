@@ -26,9 +26,10 @@
 *.DS_Store
 *._*
 
-# Bundler #
+# Packages #
 ###########
 .bundle
+node_modules/
 vendor/ruby
 
 # TODO #
