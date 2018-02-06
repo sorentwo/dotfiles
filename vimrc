@@ -11,7 +11,7 @@ Plug 'morhetz/gruvbox'
 Plug 'godlygeek/tabular'
 Plug 'janko-m/vim-test'
 Plug 'kien/ctrlp.vim'
-Plug 'mileszs/ack.vim'
+Plug 'mhinz/vim-grepper'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -40,9 +40,10 @@ call plug#end()
 let mapleader=" "
 
 nmap <Leader>bd :%bd \| e#<CR>
-nmap <Leader>c :Ack!<space>
+nmap <Leader>g :GrepperRg<space>
 nmap <Leader>ed :tabe TODO<CR>
 nmap <Leader>md :!open -a /Applications/Marked.app %<CR>
+nmap <Leader>mf :!mix format %<CR>
 nmap <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
 nmap <Leader>r :CtrlP<CR>
 nmap <Leader>R :CtrlPClearCache \| :CtrlP<CR>
@@ -206,7 +207,16 @@ set statusline+=%-8(%l,%c%V%) " line, character
 set visualbell
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CtrlP / Ack / Searching
+" Terminal Mode
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if has('nvim')
+  tnoremap <Esc> <C-\><C-n>
+  tnoremap <C-v><Esc> <Esc>
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CtrlP / Grepper / Searching
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set wildmode=list:longest,list:full
@@ -215,9 +225,16 @@ set wildignore+=*/.git/*,*/node_modules/**,*/vendor/ruby/**,*/_build/**,*/deps/*
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_show_hidden = 1
 
+nnoremap <Leader>* :Grepper -cword -noprompt<CR>
+
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
+
 if executable('rg')
+  let g:grepper = {}
+  let g:grepper.tools = ['rg', 'git']
+
   set grepprg=rg\ --color=never
-  let g:ackprg = 'rg --vimgrep'
   let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
   let g:ctrlp_use_caching = 0
 endif
@@ -280,3 +297,9 @@ let test#filename_modifier = ':p' " required for testing elixir umbrella apps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:ale_lint_on_text_changed = 'never' " only lint on save
+
+" Mappings in the style of unimpaired-next
+nmap <silent> [W <Plug>(ale_first)
+nmap <silent> [w <Plug>(ale_previous)
+nmap <silent> ]w <Plug>(ale_next)
+nmap <silent> ]W <Plug>(ale_last)
