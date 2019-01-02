@@ -43,7 +43,7 @@ nmap <Leader>bd :%bd \| e#<CR>
 nmap <Leader>g :GrepperRg<space>
 nmap <Leader>ed :tabe TODO<CR>
 nmap <Leader>md :!open -a /Applications/Marked.app %<CR>
-nmap <Leader>mf :!mix format %<CR>
+nmap <Leader>mf :w\|:!mix format %<CR>
 nmap <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
 nmap <Leader>r :CtrlP<CR>
 nmap <Leader>R :CtrlPClearCache \| :CtrlP<CR>
