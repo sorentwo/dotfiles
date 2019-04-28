@@ -42,11 +42,10 @@ let mapleader=" "
 nmap <Leader>bd :%bd \| e#<CR>
 nmap <Leader>g :GrepperRg<space>
 nmap <Leader>ed :tabe TODO<CR>
-nmap <Leader>md :!open -a /Applications/Marked.app %<CR>
+nmap <Leader>md :!open -a /Applications/Marked\ 2.app %<CR>
 nmap <Leader>mf :w\|:!mix format %<CR>
 nmap <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
 nmap <Leader>r :CtrlP<CR>
-nmap <Leader>R :CtrlPClearCache \| :CtrlP<CR>
 nmap <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
 
 " Testing
@@ -114,7 +113,7 @@ nmap Y y$
 " Change cursor shape between modes
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+set guicursor=n-v-c-sm:block,i-ci-ve:ver25-Cursor,r-cr-o:hor20
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Backup Preferences
