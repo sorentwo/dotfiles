@@ -25,7 +25,6 @@ Plug 'w0rp/ale'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
-Plug 'aliou/sql-heredoc.vim'
 Plug 'tpope/vim-markdown'
 
 " Frameworks
@@ -296,9 +295,13 @@ let test#filename_modifier = ':p' " required for testing elixir umbrella apps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:ale_lint_on_text_changed = 'never' " only lint on save
+let g:ale_lint_on_insert_leave = 0 " again, only lint on save
 
 " Mappings in the style of unimpaired-next
 nmap <silent> [W <Plug>(ale_first)
 nmap <silent> [w <Plug>(ale_previous)
 nmap <silent> ]w <Plug>(ale_next)
 nmap <silent> ]W <Plug>(ale_last)
+
+" Attempt to avoid the escape key
+imap kj <Esc>
