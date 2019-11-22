@@ -8,9 +8,9 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'morhetz/gruvbox'
 
 " Utilities
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'godlygeek/tabular'
 Plug 'janko-m/vim-test'
-Plug 'kien/ctrlp.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
@@ -26,9 +26,6 @@ Plug 'w0rp/ale'
 " Languages
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-markdown'
-
-" Frameworks
-Plug 'tpope/vim-rails'
 
 call plug#end()
 
@@ -48,9 +45,10 @@ nmap <Leader>r :CtrlP<CR>
 nmap <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
 
 " Testing
-nmap <silent> <Leader>t :w\|:TestFile<CR>
-nmap <silent> <Leader>a :w\|:TestSuite<CR>
-nmap <silent> <Leader>l :w\|:TestLast<CR>
+nmap <silent> <Leader>tn :w\|:TestNearest<CR>
+nmap <silent> <Leader>tt :w\|:TestFile<CR>
+nmap <silent> <Leader>ta :w\|:TestSuite<CR>
+nmap <silent> <Leader>tl :w\|:TestLast<CR>
 
 " Convert hashrockets to symbols
 nmap <Leader>f> :%s/\v:(\w+)\s*\=\>\s*/\1: /g<CR>
@@ -302,6 +300,3 @@ nmap <silent> [W <Plug>(ale_first)
 nmap <silent> [w <Plug>(ale_previous)
 nmap <silent> ]w <Plug>(ale_next)
 nmap <silent> ]W <Plug>(ale_last)
-
-" Attempt to avoid the escape key
-imap kj <Esc>
