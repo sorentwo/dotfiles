@@ -22,10 +22,15 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'w0rp/ale'
+Plug 'zerowidth/vim-copy-as-rtf'
+
+" This must be specified _before_ loading polyglot
+let g:polyglot_disabled = ['markdown'] " Use tpope/vim-markdown instead
 
 " Languages
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-rails'
 
 call plug#end()
 
@@ -39,7 +44,6 @@ nmap <Leader>bd :%bd \| e#<CR>
 nmap <Leader>g :GrepperRg<space>
 nmap <Leader>ed :tabe TODO<CR>
 nmap <Leader>md :!open -a /Applications/Marked\ 2.app %<CR>
-nmap <Leader>mf :w\|:!mix format %<CR>
 nmap <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
 nmap <Leader>r :CtrlP<CR>
 nmap <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
@@ -144,6 +148,7 @@ set shiftwidth=2
 set expandtab
 set listchars=tab:▸\ ,trail:·,eol:¬
 set showbreak=…
+set textwidth=98
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Whitespace Highlighting
@@ -261,7 +266,6 @@ au BufRead,BufNewFile *.md setlocal textwidth=80
 " Markdown
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:polyglot_disabled = ['markdown'] " Use tpope/vim-markdown instead
 let g:markdown_fenced_languages = ['javascript', 'json', 'sql', 'elixir', 'ruby', 'bash=sh']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -294,6 +298,22 @@ let test#filename_modifier = ':p' " required for testing elixir umbrella apps
 
 let g:ale_lint_on_text_changed = 'never' " only lint on save
 let g:ale_lint_on_insert_leave = 0 " again, only lint on save
+
+let g:ale_linters = {}
+let g:ale_linters.elixir = ['elixir-ls', 'credo']
+
+let g:ale_elixir_elixir_ls_release = expand("/Users/parker/Work/Code/elixir-ls/rel")
+let g:ale_elixir_elixir_ls_config = {'elixirLS': {'dialyzerEnabled': v:false}}
+
+let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
+let g:ale_fixers.elixir = ['mix_format']
+
+set completeopt=menu,menuone,preview,noselect,noinsert
+let g:ale_completion_enabled = 1
+
+nnoremap dt :ALEGoToDefinition<cr>
+nnoremap df :ALEFix<cr>
+nnoremap K :ALEHover<cr>
 
 " Mappings in the style of unimpaired-next
 nmap <silent> [W <Plug>(ale_first)
