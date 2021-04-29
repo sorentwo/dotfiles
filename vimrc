@@ -8,9 +8,10 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'morhetz/gruvbox'
 
 " Utilities
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'godlygeek/tabular'
 Plug 'janko-m/vim-test'
+Plug 'junegunn/fzf'
+Plug 'merlinrebrovic/focus.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
@@ -45,7 +46,7 @@ nmap <Leader>g :GrepperRg<space>
 nmap <Leader>ed :tabe TODO<CR>
 nmap <Leader>md :!open -a /Applications/Marked\ 2.app %<CR>
 nmap <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
-nmap <Leader>r :CtrlP<CR>
+nmap <Leader>r :call fzf#run(fzf#wrap({'source': 'rg . --files --color=never --glob ""'}))<CR>
 nmap <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
 
 " Testing
@@ -217,14 +218,11 @@ if has('nvim')
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CtrlP / Grepper / Searching
+" FZF / Grepper / Searching
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set wildmode=list:longest,list:full
 set wildignore+=*/.git/*,*/node_modules/**,*/vendor/ruby/**,*/_build/**,*/deps/**,*/tmp/*,.DS_Store
-
-let g:ctrlp_match_window_reversed = 1
-let g:ctrlp_show_hidden = 1
 
 nnoremap <Leader>* :Grepper -cword -noprompt<CR>
 
@@ -236,9 +234,21 @@ if executable('rg')
   let g:grepper.tools = ['rg', 'git']
 
   set grepprg=rg\ --color=never
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-  let g:ctrlp_use_caching = 0
 endif
+
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+let g:fzf_layout = { 'down': '15' }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Quickfix to Args
