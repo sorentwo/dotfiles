@@ -14,7 +14,7 @@
 [alias]
   a = add -A
   aa = !git add -A . && git status
-  bd = branch -d
+  bd = branch -D
   ca = commit --amend
   cm = checkout main
   cob = checkout -b
@@ -22,6 +22,7 @@
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   ir = rebase -i origin/main
   mf = merge --no-ff
+  ph = push origin -u HEAD
   rbc = rebase --continue
   rmb = !sh -c 'git branch -D $1 && git push origin :$1' -
   rpo = remote prune origin
@@ -37,3 +38,8 @@
 	default = simple
 [heroku]
 	account = sorentwo
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
