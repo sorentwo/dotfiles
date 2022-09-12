@@ -42,27 +42,23 @@ call plug#end()
 let mapleader=" "
 
 nmap <Leader>bd :%bd \| e#<CR>
+nmap <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
 nmap <Leader>g :GrepperRg<space>
+nmap <Leader>r :call fzf#run(fzf#wrap({'source': 'rg . --files --color=never --glob ""'}))<CR>
+
+" Ale / LSP
+nmap <Leader>af :ALEFix<CR>
+nmap <Leader>ag :ALEGoToDefinition<CR>
+
+" Opening
 nmap <Leader>ed :tabe TODO<CR>
 nmap <Leader>md :!open -a /Applications/Marked\ 2.app %<CR>
-nmap <leader>d :NERDTreeToggle \| :silent NERDTreeMirror<CR>
-nmap <Leader>r :call fzf#run(fzf#wrap({'source': 'rg . --files --color=never --glob ""'}))<CR>
-nmap <Leader>pr orequire 'pry'; binding.pry<ESC>:w<CR>
 
 " Testing
 nmap <silent> <Leader>tn :w\|:TestNearest<CR>
 nmap <silent> <Leader>tt :w\|:TestFile<CR>
 nmap <silent> <Leader>ta :w\|:TestSuite<CR>
 nmap <silent> <Leader>tl :w\|:TestLast<CR>
-
-" Convert hashrockets to symbols
-nmap <Leader>f> :%s/\v:(\w+)\s*\=\>\s*/\1: /g<CR>
-
-" Remove extra spaces in assignments
-nmap <Leader>f= :%s/\v\s{2,}\=/ =/g<CR>
-
-" Remove extra spaces in maps
-nmap <Leader>f: :%s/\v(\w+):\s{2,}/\1: /g<CR>
 
 " Remove any trailing whitespace
 nmap <Leader>fw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
@@ -272,6 +268,9 @@ endfunction
 " Force markdown to hard wrap
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
+" Treat TODO files as conf
+au BufNewFile,BufRead TODO set ft=conf
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Markdown
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -321,8 +320,6 @@ let g:ale_fixers.elixir = ['mix_format']
 set completeopt=menu,menuone,preview,noselect,noinsert
 let g:ale_completion_enabled = 1
 
-nnoremap dt :ALEGoToDefinition<cr>
-nnoremap df :ALEFix<cr>
 nnoremap K :ALEHover<cr>
 
 " Mappings in the style of unimpaired-next
