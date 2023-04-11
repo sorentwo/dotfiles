@@ -80,7 +80,7 @@ set "@prefix_highlight_output_prefix" "  "
 
 status_widgets=$(get "@widgets")
 time_format=$(get "@time_format" "%R")
-date_format=$(get "@date_format" "%d/%m/%Y")
+date_format=$(get "@date_format" "%Y-%m-%d")
 
 set "status-right" "#[fg=$white,bg=$black,nounderscore,noitalics]${time_format}  ${date_format} #[fg=$visual_grey,bg=$black]#[fg=$visual_grey,bg=$visual_grey]#[fg=$white, bg=$visual_grey]${status_widgets} #[fg=$green,bg=$visual_grey,nobold,nounderscore,noitalics]#[fg=$black,bg=$green,bold] #h #[fg=$yellow, bg=$green]#[fg=$red,bg=$yellow]"
 set "status-left" "#[fg=$black,bg=$green,bold] #S #{prefix_highlight}#[fg=$green,bg=$black,nobold,nounderscore,noitalics]"
