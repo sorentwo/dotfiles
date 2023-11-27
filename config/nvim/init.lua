@@ -42,6 +42,7 @@ return require('packer').startup(function(use)
 
   vim.g.mapleader = " "
 
+  vim.keymap.set("n", "<leader>bd", ":%bd <bar> e#<CR>")
   vim.keymap.set("n", "<leader>ed", ":tabe TODO<CR>")
   vim.keymap.set("n", "<leader>md", ":!open -a /Applications/Marked\\ 2.app %<CR>")
 
@@ -79,6 +80,16 @@ return require('packer').startup(function(use)
   })
 
   -----------------------------------------------------------------------------
+  -- Remap escape
+  -----------------------------------------------------------------------------
+
+  vim.cmd([[
+    inoremap kj <esc>
+    vnoremap kj <esc>
+    cnoremap kj <C-C>
+  ]])
+
+  -----------------------------------------------------------------------------
   -- Search
   -----------------------------------------------------------------------------
 
@@ -87,6 +98,8 @@ return require('packer').startup(function(use)
   vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
   vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
   vim.keymap.set("n", "<leader>fc", builtin.git_commits, {})
+  vim.keymap.set("n", "<leader>fa", builtin.resume, {})
+  vim.keymap.set("n", "<leader>fG", ":execute 'Telescope grep_string search='.expand('<cword>')<CR>", {})
 
   -----------------------------------------------------------------------------
   -- File Tree
@@ -98,6 +111,9 @@ return require('packer').startup(function(use)
 
   require("nvim-tree").setup({
     sort_by = "case_sensitive",
+    filters = {
+      dotfiles = true
+    },
     view = {
       side = "right"
     }
@@ -159,7 +175,7 @@ return require('packer').startup(function(use)
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
       ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-e>"] = cmp.mapping.abort(),
-      ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
@@ -219,6 +235,10 @@ return require('packer').startup(function(use)
 
   require("lspconfig").elixirls.setup {
     cmd = { "/Users/parker/Work/Code/elixir-ls/rel/language_server.sh" },
+    capabilities = capabilities
+  }
+
+  require'lspconfig'.rome.setup {
     capabilities = capabilities
   }
 
