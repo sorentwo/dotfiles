@@ -67,6 +67,19 @@ return require('packer').startup(function(use)
   vim.wo.linebreak = true
 
   -----------------------------------------------------------------------------
+  -- Markdown Override
+  -----------------------------------------------------------------------------
+
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    callback = function()
+      vim.opt.shiftwidth = 2
+      vim.opt.tabstop = 2
+      vim.opt.softtabstop = 2
+    end,
+  })
+
+  -----------------------------------------------------------------------------
   -- Colorscheme
   -----------------------------------------------------------------------------
 
@@ -78,16 +91,6 @@ return require('packer').startup(function(use)
       theme = "auto"
     }
   })
-
-  -----------------------------------------------------------------------------
-  -- Remap escape
-  -----------------------------------------------------------------------------
-
-  vim.cmd([[
-    inoremap kj <esc>
-    vnoremap kj <esc>
-    cnoremap kj <C-C>
-  ]])
 
   -----------------------------------------------------------------------------
   -- Search
