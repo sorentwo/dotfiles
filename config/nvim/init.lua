@@ -86,6 +86,10 @@ return require('packer').startup(function(use)
   vim.o.termguicolors = true
   vim.cmd.colorscheme("embark")
 
+  -- Override module and atom highlights for Elixir
+  vim.cmd.highlight("link @module.elixir @lsp.type.struct")
+  vim.cmd.highlight("link @string.special.symbol @string")
+
   require("lualine").setup({
     options = {
       theme = "auto"
