@@ -16,6 +16,7 @@
   aa = !git add -A . && git status
   bd = branch -D
   ca = commit --amend
+  changelog = !bash -c 'git log --pretty=format:\"- %ad %B\" --grep=\"^Bump\" --invert-grep --date=short $(git describe --tags --abbrev=0)..HEAD' -
   cm = checkout main
   cob = checkout -b
   cor = !sh -c 'git checkout -b $1 origin/$1' -
@@ -26,6 +27,7 @@
   rbc = rebase --continue
   rmb = !sh -c 'git branch -D $1 && git push origin :$1' -
   rpo = remote prune origin
+  sh = !sh -c 'git log --pretty=format:"%B" -1 $1' -
   st = status -sb
   sur = submodule update --remote
   up = !git fetch origin main && git rebase origin/main && git fetch -p origin
@@ -36,10 +38,10 @@
 	user = sorentwo
 [push]
 	default = simple
-[heroku]
-	account = sorentwo
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[init]
+	defaultBranch = main
