@@ -3,7 +3,7 @@ return require('packer').startup(function(use)
 
   -- Syntax & Colors
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
-  use { "embark-theme/vim", as = "embark" }
+  use { "folke/tokyonight.nvim", as = "tokyotonight" }
 
   -- Navigation
   use "nvim-lua/plenary.nvim"
@@ -84,7 +84,7 @@ return require('packer').startup(function(use)
   -----------------------------------------------------------------------------
 
   vim.o.termguicolors = true
-  vim.cmd.colorscheme("embark")
+  vim.cmd.colorscheme("tokyonight-moon")
 
   -- Override module and atom highlights for Elixir
   vim.cmd.highlight("link @module.elixir @lsp.type.struct")
@@ -93,6 +93,14 @@ return require('packer').startup(function(use)
   require("lualine").setup({
     options = {
       theme = "auto"
+    },
+    sections = {
+      lualine_a = {'mode'},
+      lualine_b = {'diagnostics'},
+      lualine_c = {'filename'},
+      lualine_x = {'filetype'},
+      lualine_y = {},
+      lualine_z = {'location'}
     }
   })
 
@@ -231,6 +239,7 @@ return require('packer').startup(function(use)
 
       vim.keymap.set("n", "<leader>af", function() vim.lsp.buf.format { async = true } end, opts)
 
+      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
       vim.keymap.set("n", "<leader>ce", vim.diagnostic.open_float)
       vim.keymap.set("n", "<leader>cq", vim.diagnostic.setloclist)
       vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
@@ -238,16 +247,32 @@ return require('packer').startup(function(use)
     end
   })
 
-  local capabilities = require("cmp_nvim_lsp").default_capabilities()
+  local lspconfig = require("lspconfig")
+  local configs = require("lspconfig.configs")
 
-  require("lspconfig").elixirls.setup {
-    cmd = { "/Users/parker/Work/Code/elixir-ls/rel/language_server.sh" },
-    capabilities = capabilities
+  local lexical_config = {
+    filetypes = { "elixir", "eelixir", "heex" },
+    cmd = { "/Users/parker/Work/Code/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
+    settings = {},
   }
 
-  require'lspconfig'.rome.setup {
-    capabilities = capabilities
-  }
+  if not configs.lexical then
+    configs.lexical = {
+      default_config = {
+        filetypes = lexical_config.filetypes,
+        cmd = lexical_config.cmd,
+        root_dir = function(fname)
+          return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
+        end,
+        -- optional settings
+        settings = lexical_config.settings,
+      },
+    }
+  end
+
+  lspconfig.lexical.setup({})
+
+  lspconfig.rome.setup({ capabilities = capabilities })
 
   -----------------------------------------------------------------------------
   -- Autocomplete
