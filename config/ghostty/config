@@ -1,0 +1,11 @@
+cursor-style = block
+cursor-style-blink = false
+font-family = TX-02
+font-size = 15.0
+font-thicken = true
+font-thicken-strength = 100
+theme = tokyonight-storm
+window-save-state = always
+
+keybind = cmd+k=goto_split:up
+keybind = cmd+j=goto_split:down
