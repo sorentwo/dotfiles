@@ -1,4 +1,4 @@
-return require('packer').startup(function(use)
+return require("packer").startup(function(use)
   use "wbthomason/packer.nvim"
 
   -- Syntax & Colors
@@ -18,11 +18,22 @@ return require('packer').startup(function(use)
   use "hrsh7th/cmp-buffer"
   use "hrsh7th/cmp-path"
   use "hrsh7th/cmp-cmdline"
-  use "L3MON4D3/LuaSnip"
-  use "saadparwaiz1/cmp_luasnip"
 
   -- LSP
   use "neovim/nvim-lspconfig"
+
+  -- LLM
+  use "stevearc/dressing.nvim"
+  use "MunifTanjim/nui.nvim"
+  use "MeanderingProgrammer/render-markdown.nvim"
+
+  use {
+    "yetone/avante.nvim",
+    run = "make",
+    config = function()
+      require('avante').setup()
+    end
+  }
 
   -- Utils
   use "godlygeek/tabular"
@@ -84,7 +95,15 @@ return require('packer').startup(function(use)
   -----------------------------------------------------------------------------
 
   vim.o.termguicolors = true
-  vim.cmd.colorscheme("tokyonight-moon")
+
+  require("tokyonight").setup({
+    styles = {
+      comments = { italic = true },
+      keywords = { italic = false },
+    }
+  })
+
+  vim.cmd.colorscheme("tokyonight")
 
   -- Override module and atom highlights for Elixir
   vim.cmd.highlight("link @module.elixir @lsp.type.struct")
@@ -181,16 +200,12 @@ return require('packer').startup(function(use)
         require("luasnip").lsp_expand(args.body)
       end,
     },
-    window = {
-      -- completion = cmp.config.window.bordered(),
-      -- documentation = cmp.config.window.bordered(),
-    },
     mapping = cmp.mapping.preset.insert({
       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
       ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-e>"] = cmp.mapping.abort(),
-      ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
@@ -233,6 +248,8 @@ return require('packer').startup(function(use)
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
       vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
       vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+      vim.keymap.set("n", "[g", vim.diagnostic.goto_prev)
+      vim.keymap.set("n", "]g", vim.diagnostic.goto_next)
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
       vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
@@ -242,8 +259,6 @@ return require('packer').startup(function(use)
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
       vim.keymap.set("n", "<leader>ce", vim.diagnostic.open_float)
       vim.keymap.set("n", "<leader>cq", vim.diagnostic.setloclist)
-      vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-      vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
     end
   })
 
@@ -271,8 +286,6 @@ return require('packer').startup(function(use)
   end
 
   lspconfig.lexical.setup({})
-
-  lspconfig.rome.setup({ capabilities = capabilities })
 
   -----------------------------------------------------------------------------
   -- Autocomplete
@@ -342,4 +355,10 @@ return require('packer').startup(function(use)
       au BufEnter * call <sid>options()
     augroup END
   ]])
+
+  -----------------------------------------------------------------------------
+  -- LLM
+  -----------------------------------------------------------------------------
+
+  require("avante").setup()
 end)
