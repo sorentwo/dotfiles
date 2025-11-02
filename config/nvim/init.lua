@@ -19,25 +19,10 @@ return require("packer").startup(function(use)
   use "hrsh7th/cmp-path"
   use "hrsh7th/cmp-cmdline"
 
-  -- LSP
-  use "neovim/nvim-lspconfig"
-
-  -- LLM
-  use "stevearc/dressing.nvim"
-  use "MunifTanjim/nui.nvim"
-  use "MeanderingProgrammer/render-markdown.nvim"
-
-  use {
-    "yetone/avante.nvim",
-    run = "make",
-    config = function()
-      require('avante').setup()
-    end
-  }
-
   -- Utils
   use "godlygeek/tabular"
   use "janko-m/vim-test"
+  use 'nvim-pack/nvim-spectre'
   use "tpope/vim-commentary"
   use "tpope/vim-endwise"
   use "tpope/vim-eunuch"
@@ -78,7 +63,7 @@ return require("packer").startup(function(use)
   vim.wo.linebreak = true
 
   -----------------------------------------------------------------------------
-  -- Markdown Override
+  -- Filetype Overrides
   -----------------------------------------------------------------------------
 
   vim.api.nvim_create_autocmd("FileType", {
@@ -149,7 +134,7 @@ return require("packer").startup(function(use)
       dotfiles = true
     },
     view = {
-      side = "right"
+      side = "left"
     }
   })
 
@@ -262,30 +247,21 @@ return require("packer").startup(function(use)
     end
   })
 
-  local lspconfig = require("lspconfig")
-  local configs = require("lspconfig.configs")
-
-  local lexical_config = {
-    filetypes = { "elixir", "eelixir", "heex" },
+  vim.lsp.config("lexical", {
     cmd = { "/Users/parker/Work/Code/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
-    settings = {},
-  }
+    root_markers = { "mix.exs", ".git" },
+    filetypes = { "elixir", "eelixir", "heex" },
+  })
 
-  if not configs.lexical then
-    configs.lexical = {
-      default_config = {
-        filetypes = lexical_config.filetypes,
-        cmd = lexical_config.cmd,
-        root_dir = function(fname)
-          return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
-        end,
-        -- optional settings
-        settings = lexical_config.settings,
-      },
-    }
-  end
+  vim.lsp.enable("lexical")
 
-  lspconfig.lexical.setup({})
+  vim.lsp.config("ruff", {
+    cmd = { "ruff", "server" },
+    root_markers = { "pyproject.toml" },
+    filetypes = { "python" }
+  })
+
+  vim.lsp.enable("ruff")
 
   -----------------------------------------------------------------------------
   -- Autocomplete
@@ -321,24 +297,10 @@ return require("packer").startup(function(use)
       \ 'test/*_test.exs': {
       \   'type': 'test',
       \   'alternate': 'lib/{}.ex',
-      \   'template': ['defmodule {camelcase|capitalize|dot}Test do', '  use ExUnit.Case', '', '  alias {camelcase|capitalize|dot}, as: Subject', '', '  doctest Subject', 'end'],
+      \   'template': ['defmodule {camelcase|capitalize|dot}Test do', '  use ExUnit.Case, async: true', '', '  alias {camelcase|capitalize|dot}', '', 'end'],
       \ },
       \ 'mix.exs': { 'type': 'mix' },
-      \ 'config/*.exs': { 'type': 'config' },
-      \ '*.ex': {
-      \   'makery': {
-      \     'lint': { 'compiler': 'credo' },
-      \     'test': { 'compiler': 'exunit' },
-      \     'build': { 'compiler': 'mix' }
-      \   }
-      \ },
-      \ '*.exs': {
-      \   'makery': {
-      \     'lint': { 'compiler': 'credo' },
-      \     'test': { 'compiler': 'exunit' },
-      \     'build': { 'compiler': 'mix' }
-      \   }
-      \ }
+      \ 'config/*.exs': { 'type': 'config' }
       \ }
 
     func! s:options() abort
@@ -357,8 +319,13 @@ return require("packer").startup(function(use)
   ]])
 
   -----------------------------------------------------------------------------
-  -- LLM
+  -- CopyToRTF
   -----------------------------------------------------------------------------
 
-  require("avante").setup()
+  vim.api.nvim_create_user_command('ToRTF', function()
+    vim.cmd('TOhtml tmp.html | w!')
+    vim.cmd([[exec "!textutil -convert rtf -stdout -font TX-02 -fontsize 32 tmp.html | pbcopy"]])
+    vim.cmd('Remove')
+    vim.cmd('bd')
+  end, {})
 end)
