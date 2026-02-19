@@ -32,6 +32,10 @@
 node_modules/
 vendor/ruby
 
+# AI Tooling #
+###########
+.claude/
+
 # TODO #
 ########
 TODO*
