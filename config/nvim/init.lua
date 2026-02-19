@@ -22,7 +22,7 @@ return require("packer").startup(function(use)
   -- Utils
   use "godlygeek/tabular"
   use "janko-m/vim-test"
-  use 'nvim-pack/nvim-spectre'
+  use "lewis6991/gitsigns.nvim"
   use "tpope/vim-commentary"
   use "tpope/vim-endwise"
   use "tpope/vim-eunuch"
@@ -93,6 +93,8 @@ return require("packer").startup(function(use)
   -- Override module and atom highlights for Elixir
   vim.cmd.highlight("link @module.elixir @lsp.type.struct")
   vim.cmd.highlight("link @string.special.symbol @string")
+
+  require("gitsigns").setup()
 
   require("lualine").setup({
     options = {
