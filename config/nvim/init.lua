@@ -249,13 +249,13 @@ return require("packer").startup(function(use)
     end
   })
 
-  vim.lsp.config("lexical", {
-    cmd = { "/Users/parker/Work/Code/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
-    root_markers = { "mix.exs", ".git" },
+  vim.lsp.config("expert", {
+    cmd = { "/Users/parker/.local/bin/expert_darwin_arm64", "--stdio" },
+    root_markers = { "mix.exs" },
     filetypes = { "elixir", "eelixir", "heex" },
   })
 
-  vim.lsp.enable("lexical")
+  vim.lsp.enable("expert")
 
   vim.lsp.config("ruff", {
     cmd = { "ruff", "server" },
